@@ -4,7 +4,6 @@ import Settings from './pages/Settings';
 import Home from './pages/Home';
 import Navigationbar from './components/Navigationbar';
 import Login from './pages/Login'
-import { AuthProvider } from "./context/AuthContext";
 import Profile from './pages/Profile'
 import Register from "./pages/Regsitration";
 
@@ -13,7 +12,6 @@ function App() {
   return (
     <div className="App">
         <BrowserRouter>
-            <AuthProvider>
                 <Navigationbar />
                 <Routes>
                     <Route exact path='/' element={<Home/>}/>
@@ -23,7 +21,6 @@ function App() {
                     <Route path = "/Login" element={<Login/>}/>
                      <Route path = "/Register" element={<Register/>}/>
                 </Routes>
-            </AuthProvider>
         </BrowserRouter>
     </div>
   );

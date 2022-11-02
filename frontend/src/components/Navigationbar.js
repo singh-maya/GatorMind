@@ -6,13 +6,12 @@ import {useContext, useEffect, useState} from "react";
 
 import{HouseDoor, Bell, Gear, SearchHeart, CircleFill} from "react-bootstrap-icons";
 
-import AuthContext from "../context/AuthContext";
+
 import Login from "../pages/Login";
 import Registration from "../pages/Regsitration";
 
 
 const Navigationbar = () => {
-    const { user} = useContext(AuthContext);
     return (
             <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
                 <Navbar.Toggle aria-controls="navbarScroll" data-bs-toggle="collapse" data-bs-target="#navbarScroll" />

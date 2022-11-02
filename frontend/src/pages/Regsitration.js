@@ -1,43 +1,56 @@
-import { useState, useContext } from "react";
-import AuthContext from "../context/AuthContext";
+import { useState} from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
+import { connect } from 'react-redux';
+import { Redirect, Link } from 'react-router-dom';
+import axios from "axios";
 
+function Register () {
+    const [formData, setFormData] = useState({
+      email : '',
+      first_name: '',
+      last_name: '',
+      password: '',
+      c_password: ''
+    });
 
-function Register() {
-    const [email, setEmail] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [password2, setPassword2] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [isValid, setValid] = useState(false);
-    const { registerUser } = useContext(AuthContext);
+    const[accountCreated, setAccountCreated] = useState(false);
+    const{email, first_name, last_name, password, c_password} = formData;
+    
+    const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
 
-    function passwordCheck(){
-        if(password === password2){
-            setValid(true);
-        }
-        else{
-            setValid(false);
-        }
+    const onSubmit = e =>{
+      e.preventDefault();
+
+      if(password == c_password){
+        // post to django here
+        const config = {
+          headers:{
+            'Accept':'application/json',
+            'Content-Type': 'application/json'
+          }
+        };
+
+        const body = JSON.stringify({formData});
+        axios
+          .post("http://localhost:8000/wel/", body, config)
+          .catch((err) => {})
+        setAccountCreated(true);
+      }
     }
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    registerUser(username, password, password2);
-  };
 
   return (
       <div className = "color-overlay d-flex justify-content-center align-items-center">
-      <Form className={"rounded p-4 p-sm-3"} onSubmit={handleSubmit}>
+      <Form className={"rounded p-4 p-sm-3"} onSubmit={e => onSubmit(e)}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               className="email"
               placeholder="Enter Email"
-              onChange={e => setEmail(e.target.value)}
+              onChange={e => onChange(e)}
+              value = {email}
               type="text"
             />
             <Form.Text className="text-muted">
@@ -50,7 +63,8 @@ function Register() {
             <Form.Control
               className="firstName"
               placeholder="Enter First Name"
-              onChange={e => setFirstName(e.target.value)}
+              onChange={e => onChange(e)}
+              value = {first_name}
               type="text"
             />
           </Form.Group>
@@ -60,7 +74,8 @@ function Register() {
             <Form.Control
               className="lastName"
               placeholder="Enter Last Name"
-              onChange={e => setLastName(e.target.value)}
+              onChange={e => onChange(e)}
+              value = {last_name}
               type="text"
             />
           </Form.Group>
@@ -70,7 +85,8 @@ function Register() {
               <Form.Control
                   type="password"
                   id="password"
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={e => onChange(e)}
+                  value = {password}
                   placeholder="Enter Password"
                   required />
           </Form.Group>
@@ -80,17 +96,18 @@ function Register() {
               <Form.Control
                   type="password"
                   id="password"
-                  onChange={e => setPassword2(e.target.value)}
+                  onChange={e => onChange(e)}
+                  value = {c_password}
                   placeholder="Confirm Password"
                   required />
           </Form.Group>
 
-          <Button onClick = {passwordCheck}>
+          <Button>
             Submit
           </Button>
       </Form>
       </div>
   );
-}
+};
 
 export default Register;
