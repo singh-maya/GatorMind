@@ -1,29 +1,31 @@
-import {BrowserRouter as BrowserRouter, Route, Routes} from 'react-router-dom';
-import Notifications from './components/Notification';
-import Settings from './pages/Settings';
+import React from 'react';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+
 import Home from './pages/Home';
-import Navigationbar from './components/Navigationbar';
-import Login from './pages/Login'
-import Profile from './pages/Profile'
-import Register from "./pages/Regsitration";
+import LoginPage from './pages/LoginPage';
+import Register from './pages/Regsitration';
+import Activate from './pages/Activate'
+import Layout from './hocs/Layout';
 
+import {Provider} from 'react-redux';
+import store from './store';
+import Default from "./pages/Default";
 
-function App() {
-  return (
-    <div className="App">
+const App = () => (
+    <Provider store={store}>
         <BrowserRouter>
-                <Navigationbar />
-                <Routes>
-                    <Route exact path='/' element={<Home/>}/>
-                    <Route path='/Notifications' element={<Notifications/>}/>
-                    <Route path='/Settings' element={<Settings/>}/>
-                    <Route path='/Profile' element={<Profile/>}/>
-                    <Route path = "/Login" element={<Login/>}/>
-                     <Route path = "/Register" element={<Register/>}/>
-                </Routes>
+
+            <Routes>
+                <Route exact path ='/' element = {<Default/>}/>
+                <Route path ='/home' element = {<Home/>}/>
+                <Route path ='/login' element = {<LoginPage/>}/>
+                <Route path ='/register' element = {<Register/>}/>
+                <Route path ='/activate/:uid/:token' element = {<Activate/>}/>
+            </Routes>
+
         </BrowserRouter>
-    </div>
-  );
-}
+    </Provider>
+
+)
 
 export default App;

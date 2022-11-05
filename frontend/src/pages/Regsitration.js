@@ -1,9 +1,6 @@
 import { useState} from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Alert from 'react-bootstrap/Alert';
-import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
 import axios from "axios";
 
 function Register () {
@@ -17,7 +14,7 @@ function Register () {
 
     const[accountCreated, setAccountCreated] = useState(false);
     const{email, first_name, last_name, password, c_password} = formData;
-    
+
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
 
     const onSubmit = e =>{
@@ -44,14 +41,15 @@ function Register () {
   return (
       <div className = "color-overlay d-flex justify-content-center align-items-center">
       <Form className={"rounded p-4 p-sm-3"} onSubmit={e => onSubmit(e)}>
+          <h1>Register</h1>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
-              className="email"
               placeholder="Enter Email"
+              type="email"
+              name = "email"
               onChange={e => onChange(e)}
               value = {email}
-              type="text"
             />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
@@ -63,6 +61,7 @@ function Register () {
             <Form.Control
               className="firstName"
               placeholder="Enter First Name"
+              name = "first_name"
               onChange={e => onChange(e)}
               value = {first_name}
               type="text"
@@ -74,6 +73,7 @@ function Register () {
             <Form.Control
               className="lastName"
               placeholder="Enter Last Name"
+              name = "last_name"
               onChange={e => onChange(e)}
               value = {last_name}
               type="text"
@@ -85,6 +85,7 @@ function Register () {
               <Form.Control
                   type="password"
                   id="password"
+                  name = "password"
                   onChange={e => onChange(e)}
                   value = {password}
                   placeholder="Enter Password"
@@ -96,6 +97,7 @@ function Register () {
               <Form.Control
                   type="password"
                   id="password"
+                  name = "c_password"
                   onChange={e => onChange(e)}
                   value = {c_password}
                   placeholder="Confirm Password"
