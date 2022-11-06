@@ -1,12 +1,21 @@
-import React from 'react';
-import NavigationBar from '../components/Navigationbar';
+import React, { useEffect } from 'react';
+import Navigationbar from '../components/Navigationbar';
+import { connect } from 'react-redux';
+import { checkAuthenticated, load_user } from '../actions/auth';
 
-const Layout = (props) =>(
-    <div>
-        <NavigationBar />
-        {props.children()}
-    </div>
-)
+const Layout = ({ checkAuthenticated, load_user, children }) => {
+    useEffect(() => {
+        checkAuthenticated();
+        load_user();
+    }, []);
 
-export default Layout;
+    return (
+        <div>
+            <Navigationbar />
+            {children}
+        </div>
+    );
+};
+
+export default connect(null, { checkAuthenticated, load_user })(Layout);
 

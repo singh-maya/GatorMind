@@ -1,9 +1,13 @@
-import { useState} from "react";
+import React, { useState} from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { Link, Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from "axios";
+import {signup} from "../actions/auth";
 
-function Register () {
+const Register =  ({signup, isAuthenticated}) => {
+    const [accountCreated, setAccountCreated] = useState(false);
     const [formData, setFormData] = useState({
       email : '',
       first_name: '',
@@ -11,8 +15,6 @@ function Register () {
       password: '',
       c_password: ''
     });
-
-    const[accountCreated, setAccountCreated] = useState(false);
     const{email, first_name, last_name, password, c_password} = formData;
 
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
@@ -20,21 +22,17 @@ function Register () {
     const onSubmit = e =>{
       e.preventDefault();
 
-      if(password == c_password){
-        // post to django here
-        const config = {
-          headers:{
-            'Accept':'application/json',
-            'Content-Type': 'application/json'
-          }
-        };
-
-        const body = JSON.stringify({formData});
-        axios
-          .post("http://localhost:8000/wel/", body, config)
-          .catch((err) => {})
-        setAccountCreated(true);
+      if(password === c_password){
+          signup(first_name, last_name, email, password, c_password);
+          setAccountCreated(true);
       }
+    }
+
+    if (isAuthenticated) {
+        return <Navigate to='/' />
+    }
+    if (accountCreated) {
+        return <Navigate to='/login' />
     }
 
 
@@ -112,4 +110,8 @@ function Register () {
   );
 };
 
-export default Register;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { signup })(Register);
