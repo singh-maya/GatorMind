@@ -7,15 +7,18 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ['name']
 
+
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['title', 'body', 'created_on', 'last_modified', 'categories']
+        fields = ['title', 'body', 'created_on', 'last_modified']
+
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ['author', 'body', 'created_on', 'post']
+
 
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
