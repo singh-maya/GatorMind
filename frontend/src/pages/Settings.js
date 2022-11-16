@@ -1,6 +1,5 @@
 import {Col, Container, Row} from "react-bootstrap";
 import {CircleFill, Gear} from "react-bootstrap-icons";
-import "./Settings.css";
 const Settings = () => {
     return (
         <div className="d-grid gap-md-3">
