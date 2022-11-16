@@ -3,6 +3,14 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+}
+from 'mdb-react-ui-kit';
 
 import AuthService from "../services/auth-service";
 
@@ -58,7 +66,7 @@ export default class Register extends Component {
 
     this.state = {
       username: "",
-      firstName:"",
+      firstName: "",
       lastName: "",
       email: "",
       password: "",
@@ -67,13 +75,13 @@ export default class Register extends Component {
     };
   }
 
-  onChangeFistName(e){
+  onChangeFistName(e) {
     this.setState({
       firstName: e.target.value
     });
   }
 
-    onChangeLastName(e){
+  onChangeLastName(e) {
     this.setState({
       lastName: e.target.value
     });
@@ -140,103 +148,117 @@ export default class Register extends Component {
 
   render() {
     return (
-        <div className = "color-overlay d-flex justify-content-center align-items-center">
-          <Form
-              onSubmit={this.handleRegister}
-              ref={c => {
-                this.form = c;
-              }}
-          >
-            {!this.state.successful && (
-                <div>
-                  <div className="form-group">
-                    <label htmlFor="firstname">First Name</label>
-                    <Input
-                        type="text"
-                        className="form-control"
-                        name="firstName"
-                        value={this.state.firstName}
-                        onChange={this.onChangeFistName}
-                        validations={[required]}
-                    />
-                  </div>
+        <MDBContainer fluid>
+          <MDBRow className='d-flex justify-content-center align-items-center h-100'>
+            <MDBCol col='12'>
+              <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
+                <MDBCardBody className='p-5 w-100 d-flex flex-column'>
+                  <h2 className="fw-bold mb-2 text-center">Register</h2>
+                   <p className="text-white-50 mb-3"> </p>
+                  <div className="color-overlay d-flex justify-content-center align-items-center">
+                    <Form
+                        onSubmit={this.handleRegister}
+                        ref={c => {
+                          this.form = c;
+                        }}
+                    >
+                      {!this.state.successful && (
+                          <div>
+                            <div className="form-group">
+                              <label htmlFor="firstName">First Name</label>
+                              <Input
+                                  type="text"
+                                  className="form-control"
+                                  name="firstName"
+                                  value={this.state.firstName}
+                                  onChange={this.onChangeFistName}
+                                  validations={[required]}
+                              />
+                            </div>
 
-                <div className="form-group">
-                    <label htmlFor="username">Last Name</label>
-                    <Input
-                        type="text"
-                        className="form-control"
-                        name="lastName"
-                        value={this.state.lastName}
-                        onChange={this.onChangeLastName}
-                        validations={[required]}
-                    />
-                  </div>
+                            <div className="form-group">
+                              <label htmlFor="lastName">Last Name</label>
+                              <Input
+                                  type="text"
+                                  className="form-control"
+                                  name="lastName"
+                                  value={this.state.lastName}
+                                  onChange={this.onChangeLastName}
+                                  validations={[required]}
+                              />
+                            </div>
 
-                  <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <Input
-                        type="text"
-                        className="form-control"
-                        name="username"
-                        value={this.state.username}
-                        onChange={this.onChangeUsername}
-                        validations={[required, vusername]}
-                    />
-                  </div>
+                            <div className="form-group">
+                              <label htmlFor="username">Username</label>
+                              <Input
+                                  type="text"
+                                  className="form-control"
+                                  name="username"
+                                  value={this.state.username}
+                                  onChange={this.onChangeUsername}
+                                  validations={[required, vusername]}
+                              />
+                            </div>
 
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <Input
-                        type="text"
-                        className="form-control"
-                        name="email"
-                        value={this.state.email}
-                        onChange={this.onChangeEmail}
-                        validations={[required, email]}
-                    />
-                  </div>
+                            <div className="form-group">
+                              <label htmlFor="email">Email</label>
+                              <Input
+                                  type="text"
+                                  className="form-control"
+                                  name="email"
+                                  value={this.state.email}
+                                  onChange={this.onChangeEmail}
+                                  validations={[required, email]}
+                              />
+                            </div>
 
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <Input
-                        type="password"
-                        className="form-control"
-                        name="password"
-                        value={this.state.password}
-                        onChange={this.onChangePassword}
-                        validations={[required, vpassword]}
-                    />
-                  </div>
+                            <div className="form-group">
+                              <label htmlFor="password">Password</label>
+                              <Input
+                                  type="password"
+                                  className="form-control"
+                                  name="password"
+                                  value={this.state.password}
+                                  onChange={this.onChangePassword}
+                                  validations={[required, vpassword]}
+                              />
+                            </div>
 
-                  <div className="form-group">
-                    <button className="btn btn-primary btn-block">Sign Up</button>
-                  </div>
-                </div>
-            )}
+                            <div className="form-group">
+                              <button className="btn btn-primary btn-block">Sign Up</button>
+                            </div>
+                          </div>
+                      )}
 
-            {this.state.message && (
-                <div className="form-group">
-                  <div
-                      className={
-                        this.state.successful
-                            ? "alert alert-success"
-                            : "alert alert-danger"
-                      }
-                      role="alert"
-                  >
-                    {this.state.message}
+                      {this.state.message && (
+                          <div className="form-group">
+                            <div
+                                className={
+                                  this.state.successful
+                                      ? "alert alert-success"
+                                      : "alert alert-danger"
+                                }
+                                role="alert"
+                            >
+                              {this.state.message}
+                            </div>
+                          </div>
+                      )}
+
+                      <CheckButton
+                          style={{display: "none"}}
+                          ref={c => {
+                            this.checkBtn = c;
+                          }}
+                      />
+
+                    </Form>
                   </div>
-                </div>
-            )}
-            <CheckButton
-                style={{display: "none"}}
-                ref={c => {
-                  this.checkBtn = c;
-                }}
-            />
-          </Form>
-        </div>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
     );
   }
 }
