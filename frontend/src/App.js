@@ -10,6 +10,7 @@ import Settings from "./pages/Settings"
 import {BackspaceReverse, Bell, CircleFill, Gear, HouseDoor} from "react-bootstrap-icons";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {auth, logout} from "./services/firebase"
+import {MDBIcon} from "mdb-react-ui-kit";
 
 
 function App(){
@@ -19,9 +20,10 @@ function App(){
   return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            GatorMind
-          </Link>
+            <a className="navbar-brand" href="#">
+                <MDBIcon fas icon="brain" />
+                     GatorMind
+            </a>
           {user &&
           <div className="navbar-nav ml-auto">
             <li className='nav-item'>

@@ -17,7 +17,7 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     categories = JSONField(models.CharField(max_length=60))
-    comment = models.ForeignKey(Comment,
+    comment = models.ManyToManyField(Comment,
                                 on_delete=models.CASCADE,
                                 default=0)
     likes = models.IntegerField(default=0)
