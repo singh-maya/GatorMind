@@ -1,6 +1,9 @@
+import CreatePost from "../components/CreatePost";
+
 const Home = () => {
     return (
-        <h1>Home Page</h1>
+        <CreatePost/>
+
     );
 }
  

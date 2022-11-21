@@ -1,5 +1,5 @@
 frontend/node_modules
 backend/env
-frontend/src/services/firebase.js
 backend/db.sqlite3
 frontend/firebaseConfig
+frontend/src/services/firebase.js
